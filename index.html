@@ -1,0 +1,773 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>DevOps Engineer - Portfolio</title>
+  <meta name="description" content="Portfolio of a DevOps Engineer — infrastructure, automation, CI/CD, observability." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="icon" href="https://img.icons8.com/?size=100&id=J3nZHWgT1e7m&format=png&color=000000">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* ----------------------
+       Base / Variables
+       ---------------------- */
+    :root{
+      --bg1: #0f1724; /* deep navy */
+      --bg2: #071029; /* darker */
+      --glass: rgba(255,255,255,0.04);
+      --accent: linear-gradient(90deg,#00d4ff,#7b61ff,#ff7bd6);
+      --muted: #9aa4b2;
+      --card: rgba(255,255,255,0.03);
+      --glass-2: rgba(255,255,255,0.02);
+      --text-primary: #e6eef6;
+      --text-secondary: #9aa4b2;
+      --success: #4ade80;
+      --error: #f87171;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;}
+    body{
+      margin:0;
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+      background: radial-gradient(1200px 400px at 10% 10%, rgba(123,97,255,0.08), transparent),
+                  radial-gradient(900px 350px at 90% 80%, rgba(0,212,255,0.04), transparent),
+                  linear-gradient(180deg,var(--bg1),var(--bg2));
+      color:var(--text-primary);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      scroll-behavior:smooth;
+      line-height:1.45;
+      padding:32px 24px;
+    }
+
+    /* ----------------------
+       Layout
+       ---------------------- */
+    .wrap{max-width:1100px;margin:0 auto}
+    header{
+      display:flex;align-items:center;justify-content:space-between;padding:14px 8px;margin-bottom:18px;
+    }
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{
+      width:48px;height:48px;border-radius:10px;
+      background:var(--accent);
+      background-size:200% 200%;
+      display:grid;place-items:center;font-weight:700;color:#020617;
+      animation: shimmer 6s linear infinite;
+      box-shadow:0 6px 24px rgba(23,12,46,0.6), inset 0 -6px 24px rgba(255,255,255,0.02);
+    }
+    @keyframes shimmer{0%{background-position:0% 50%}100%{background-position:200% 50%}}
+    nav{display:flex;gap:8px;align-items:center}
+    .nav-link{color:var(--muted);text-decoration:none;padding:8px 12px;border-radius:8px;font-weight:600}
+    .nav-link:hover{color:#fff;background:rgba(255,255,255,0.03)}
+
+    /* ----------------------
+       Hero
+       ---------------------- */
+    .hero{
+      display:grid;grid-template-columns:1fr 360px;gap:28px;align-items:center;margin:18px 0 36px;
+    }
+    .hero-card{
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+      border-radius:16px;padding:28px;box-shadow:0 8px 40px rgba(2,6,23,0.6);
+      border:1px solid rgba(255,255,255,0.03);
+      position:relative;overflow:hidden;
+      animation: fadeIn 0.8s ease-out;
+    }
+    .intro h1{font-size:34px;margin:0 0 8px}
+    .intro p{color:var(--muted);margin:0 0 18px}
+    .cta{display:flex;gap:12px}
+    .btn{
+      padding:10px 14px;border-radius:10px;border:0;cursor:pointer;font-weight:700;
+      background:linear-gradient(90deg,#4ce0ff,#7b61ff);color:#020617;
+      transition: all 0.3s ease;
+    }
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+    }
+    .ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
+
+    /* animated terminal */
+    .term{
+      background:linear-gradient(180deg, rgba(2,6,23,0.6), rgba(2,6,23,0.45));
+      padding:18px;border-radius:12px;min-height:160px;font-family: 'Source Code Pro', monospace;font-size:13px;color:#9be3ff;
+      box-shadow:inset 0 1px 0 rgba(255,255,255,0.02);
+      animation: fadeIn 1s ease-out;
+    }
+    .term .line{opacity:0;transform:translateY(6px);}
+    .term .line.show{opacity:1;transform:none;transition:all .45s cubic-bezier(.2,.9,.2,1)}
+
+    /* right column: profile */
+    .profile{
+      padding:18px;border-radius:14px;background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);border:1px solid rgba(255,255,255,0.03);
+      animation: slideInRight 0.8s ease-out;
+    }
+    .avatar{width:88px;height:88px;border-radius:12px;background:linear-gradient(180deg,#ffffff10,#0000000a);display:inline-grid;place-items:center;font-weight:800}
+    .profile h3{margin:10px 0 6px}
+    .tags{display:flex;gap:8px;flex-wrap:wrap}
+    .tag{padding:6px 8px;border-radius:8px;background:var(--glass);color:var(--muted);font-weight:600;font-size:13px}
+
+    /* ----------------------
+       Sections
+       ---------------------- */
+    section{margin-bottom:26px}
+    .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .card{
+      background:var(--card);padding:18px;border-radius:12px;border:1px solid rgba(255,255,255,0.02);
+      transition: all 0.3s ease;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+
+    /* skill bars */
+    .skill{margin-bottom:12px}
+    .skill .label{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-bottom:6px}
+    .bar{height:10px;background:var(--glass);border-radius:999px;overflow:hidden}
+    .bar > i{display:block;height:100%;width:0;background:var(--accent);background-size:200% 100%;border-radius:999px;animation:slideBg 3s linear infinite}
+    @keyframes slideBg{0%{background-position:0% 50%}100%{background-position:200% 50%}}
+
+    /* projects */
+    .project{display:flex;gap:12px;align-items:center}
+    .proj-thumb{width:96px;height:64px;border-radius:10px;background:linear-gradient(90deg,#0b6,#36f);flex:0 0 96px}
+
+    /* reveal animations */
+    .reveal{opacity:0;transform:translateY(24px);transition:all .6s cubic-bezier(.2,.9,.2,1)}
+    .reveal.visible{opacity:1;transform:none}
+
+    /* floating svg / background animation */
+    .float-blob{position:absolute;right:-60px;top:-80px;width:420px;height:420px;filter:blur(40px);opacity:0.12;background:conic-gradient(from 120deg, #7b61ff, #00d4ff, #ff7bd6);transform:rotate(0deg);animation:blob 12s linear infinite}
+    @keyframes blob{0%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(16px) rotate(60deg)}100%{transform:translateY(0) rotate(0deg)}}
+
+    /* footer */
+    footer{color:var(--muted);font-size:13px;padding:18px 0;border-top:1px dashed rgba(255,255,255,0.02);margin-top:18px}
+
+    /* New unified animations */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    @keyframes slideInRight { 
+      from { transform: translateX(20px); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+    
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+    
+    .pulse {
+      animation: pulse 2s infinite;
+    }
+    
+    /* Form styles */
+    .form-input {
+      padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.1);
+      background:rgba(255,255,255,0.03);color:inherit;width:100%;
+      transition: all 0.3s ease;
+    }
+    
+    .form-input:focus {
+      outline: none;
+      border-color: rgba(123, 97, 255, 0.5);
+      box-shadow: 0 0 0 3px rgba(123, 97, 255, 0.1);
+    }
+    
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      padding: 12px 20px;
+      border-radius: 8px;
+      color: white;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.3s ease;
+      z-index: 1000;
+    }
+    
+    .toast.success {
+      background-color: var(--success);
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .toast.error {
+      background-color: var(--error);
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Section background */
+    .bg-gray-950 {
+      background-color: #0a0a0a;
+    }
+
+    /* Utilities */
+    .text-center {
+      text-align: center;
+    }
+    .text-white {
+      color: #ffffff;
+    }
+    .text-purple-500 {
+      color: #a855f7;
+    }
+    .text-4xl {
+      font-size: 2.25rem;
+      line-height: 2.5rem;
+      font-weight: bold;
+    }
+    .flex {
+      display: flex;
+    }
+    .flex-col {
+      flex-direction: column;
+    }
+    .lg\:flex-row {
+      flex-direction: row;
+    }
+    .items-center {
+      align-items: center;
+    }
+    .justify-center {
+      justify-content: center;
+    }
+    .gap-6 {
+      gap: 1.5rem;
+    }
+
+    /* 🔥 Unified Card Base (works for Skills & Approach) */
+    .card-base {
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      width: 100%;
+      max-width: 22rem;
+      margin: 0 auto;
+      padding: 2rem;
+      height: 28rem; /* shorter, same as Skills */
+      border-radius: 1.25rem;
+      text-align: center;
+      position: relative;
+      transition: all 0.3s ease;
+      background: #111827; /* fallback bg */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      animation: fadeIn 0.8s ease-out;
+    }
+    .card-base:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    /* Gradient backgrounds */
+    .gradient-dark {
+      background: linear-gradient(135deg, #04071d 0%, #0c0e23 100%);
+    }
+    .gradient-pink {
+      background: linear-gradient(135deg, #9d174d 0%, #7f1d1d 100%);
+    }
+    .gradient-sky {
+      background: linear-gradient(135deg, #0284c7 0%, #1e3a8a 100%);
+    }
+
+    /* Phase Button */
+    .phase-btn {
+      position: relative;
+      display: inline-flex;
+      overflow: hidden;
+      border-radius: 9999px;
+      padding: 2px;
+      margin-bottom: 1rem;
+    }
+    .phase-btn::before {
+      content: "";
+      position: absolute;
+      inset: -1000%;
+      background: conic-gradient(
+        from 90deg at 50% 50%,
+        #e2cbff 0%,
+        #393bb2 50%,
+        #e2cbff 100%
+      );
+      animation: spin 2s linear infinite;
+    }
+    .phase-btn span {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 9999px;
+      background: #0f172a;
+      color: #a855f7;
+      font-weight: bold;
+      font-size: 1.25rem;
+      padding: 0.5rem 1.25rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Titles */
+    .card-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #ffffff;
+      opacity: 0.9;
+      transition: all 0.3s ease;
+    }
+
+    /* Descriptions */
+    .card-desc {
+      font-size: 0.875rem;
+      margin-top: 1rem;
+      color: #e4ecff;
+      opacity: 0.8;
+      transition: all 0.3s ease;
+    }
+
+    /* Hover effect */
+    .card-base:hover .card-title,
+    .card-base:hover .card-desc {
+      opacity: 1;
+      transform: translateY(-4px);
+    }
+
+    /* ----------------------
+   Extra Responsiveness
+   ---------------------- */
+
+/* Tablet (<= 1024px) */
+@media (max-width: 1024px) {
+  .hero {
+    grid-template-columns: 1fr; /* stack hero card and profile */
+  }
+  .profile {
+    margin-top: 20px;
+  }
+  .grid-3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Mobile (<= 768px) */
+@media (max-width: 768px) {
+  body {
+    padding: 20px 16px;
+  }
+  header {
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  nav {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .intro h1 {
+    font-size: 28px;
+    line-height: 1.3;
+  }
+  .cta {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .btn, .btn.ghost {
+    width: 100%;
+    text-align: center;
+  }
+  .grid-3 {
+    grid-template-columns: 1fr; /* single column */
+  }
+  .project {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .proj-thumb {
+    width: 100%;
+    height: 180px;
+  }
+  form#contact-form {
+    width: 100%;
+  }
+}
+
+/* Small phones (<= 480px) */
+@media (max-width: 480px) {
+  .intro h1 {
+    font-size: 22px;
+  }
+  .intro p {
+    font-size: 14px;
+  }
+  .avatar {
+    width: 64px;
+    height: 64px;
+  }
+  .profile h3 {
+    font-size: 16px;
+  }
+  footer {
+    font-size: 12px;
+    text-align: center;
+  }
+}
+
+
+    /* responsive */
+    @media (max-width:980px){
+      .hero{grid-template-columns:1fr;}
+      .grid-3{grid-template-columns:repeat(2,1fr)}
+    }
+    @media (max-width:640px){
+      .grid-3{grid-template-columns:1fr}
+      header{flex-direction:column;align-items:flex-start;gap:12px}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="logo">GC</div>
+        <div>
+          <div style="font-weight:800">Gokulan C</div>
+          <div style="font-size:13px;color:var(--muted)">Linux | Infrastructure | CI/CD | Observability </div>
+        </div>
+      </div>
+      <nav>
+        <a class="nav-link" href="#about">About</a>
+        <a class="nav-link" href="#skills">Skills</a>
+        <a class="nav-link" href="#approach">Approach</a> <!-- Added -->
+        <a class="nav-link" href="#projects">Projects</a>
+        <a class="nav-link" href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-card">
+          <div class="float-blob" aria-hidden="true"></div>
+          <div class="intro">
+            <h1>Hi — I'm <span style="background:linear-gradient(90deg,#4ce0ff,#7b61ff);-webkit-background-clip:text;background-clip:text;color:transparent;">Gokulan C</span>, a DevOps Engineer</h1>
+            <p>I design resilient infrastructure, ship reliable automation and scale systems for high availability.
+              I bridge product and platform with automation, observability and clean pipelines.</p>
+            <div class="cta">
+              <button class="btn" onclick="document.getElementById('projects').scrollIntoView({behavior:'smooth'})">View work</button>
+              <a class="btn ghost" href="#contact">Hire me</a>
+            </div>
+
+            <div style="height:16px"></div>
+            <div class="term" aria-live="polite">
+              <div class="line">$ git clone git@github.com:you/infra.git</div>
+              <div class="line">$ ./deploy.sh --env=prod --blue-green</div>
+              <div class="line">✔️ Deployment complete — 4 pods running • latency 52ms</div>
+            </div>
+          </div>
+        </div>
+
+        <aside class="profile">
+          <div style="display:flex;gap:12px;align-items:center">
+            <div class="avatar">GC</div>
+            <div>
+              <h3>Gokulan C</h3>
+              <div style="font-size:13px;color:var(--muted)">DevOps Engineer</div>
+            </div>
+          </div>
+          <div style="height:12px"></div>
+          <div class="tags">
+            <div class="tag">Linux</div>
+            <div class="tag">Shell Script</div>
+            <div class="tag">Python</div>
+            <div class="tag">Linux</div>
+            <div class="tag">Git</div>
+            <div class="tag">Github</div>
+            <div class="tag">Artifactoy</div>
+            <div class="tag">Jenkins</div>
+            <div class="tag">Ansible</div>
+            <div class="tag">Docker</div>
+            <div class="tag">Grafana</div>
+            <div class="tag">Promethus</div>
+            <div class="tag">Loki</div>
+            <div class="tag">Azure</div>
+          </div>
+
+          <div style="height:12px"></div>
+          <div style="display:flex;gap:8px">
+            <!-- <a class="nav-link" href="#contact">Email</a> -->
+          </div>
+        </aside>
+      </section>
+
+      <!-- About -->
+      <section id="about" class="reveal">
+        <div class="card">
+          <h2>About me</h2>
+          <p style="color:var(--muted)">I help teams deliver software faster with reliable pipelines, infrastructure as code and observability. My focus is on automation, cost optimisation, and production readiness — I treat infra as code and production as the primary testing ground.</p>
+          <ul style="color:var(--muted);margin-top:12px">
+            <li>Designed a multi-region Kubernetes platform with autoscaling & chaos testing</li>
+            <li>Built GitOps pipelines using Terraform + Flux / ArgoCD</li>
+            <li>Implemented end-to-end observability: metrics, traces, logs (Prometheus, Jaeger, Loki)</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Skills -->
+      <section id="skills" class="reveal">
+        <h2>Skills</h2>
+        <div class="grid-3">
+          <div class="card">
+            <h3>Cloud & Infrastructure</h3>
+            <div class="skill"><div class="label"><span>Azure</span><span>90%</span></div><div class="bar"><i data-width="90"></i></div></div>
+            <div class="skill"><div class="label"><span>Ansible</span><span>92%</span></div><div class="bar"><i data-width="92"></i></div></div>
+            <div class="skill"><div class="label"><span>Networking</span><span>82%</span></div><div class="bar"><i data-width="82"></i></div></div>
+          </div>
+
+          <div class="card">
+            <h3>Containers & Orchestration</h3>
+            <div class="skill"><div class="label"><span>Kubernetes</span><span>94%</span></div><div class="bar"><i data-width="94"></i></div></div>
+            <div class="skill"><div class="label"><span>Helm</span><span>85%</span></div><div class="bar"><i data-width="85"></i></div></div>
+            <div class="skill"><div class="label"><span>Docker</span><span>90%</span></div><div class="bar"><i data-width="90"></i></div></div>
+          </div>
+
+          <div class="card">
+            <h3>Pipelines & Observability</h3>
+            <div class="skill"><div class="label"><span>CI/CD</span><span>95%</span></div><div class="bar"><i data-width="95"></i></div></div>
+            <div class="skill"><div class="label"><span>Grafana</span><span>88%</span></div><div class="bar"><i data-width="88"></i></div></div>
+            <div class="skill"><div class="label"><span>Logging / Tracing</span><span>86%</span></div><div class="bar"><i data-width="86"></i></div></div>
+          </div>
+        </div>
+      </section>
+      <section id="approach" class="reveal">
+        <h2>My Approach</h2>
+        <div class="grid-3">
+          <div class="card">
+            <h2 class="card-title">Planning & Strategy</h2>
+            <p class="card-desc" style="color:var(--muted)">
+              We'll collaborate to map out your website's goals, target audience,
+              and key functionalities. We'll discuss things like site structure,
+              navigation, and content requirements.
+            </p>
+          </div>
+
+          <div class="card">
+            <h2 class="card-title">Development & Progress Update</h2>
+            <p class="card-desc" style="color:var(--muted)">
+              Once we agree on the plan, I cue my lofi playlist and dive into coding.
+              From initial sketches to polished code, I keep you updated every step of the way.
+            </p>
+          </div>
+
+          <div class="card">
+            <h2 class="card-title">Development & Launch</h2>
+            <p class="card-desc" style="color:var(--muted)">
+              This is where the magic happens! Based on the approved design,
+              I'll translate everything into functional code, building your website from the ground up.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Projects -->
+      <section id="projects" class="reveal">
+        <h2>Selected Projects</h2>
+        <div style="display:flex;flex-direction:column;gap:12px">
+
+          <article class="card project">
+            <div class="proj-thumb" aria-hidden="true"></div>
+            <div>
+              <h3 style="margin:0">K8s Autoscaler Platform</h3>
+              <p style="color:var(--muted);margin:6px 0 0">Built a multi-tenant Kubernetes platform, automated cluster provisioning with Terraform & kOps, CI/CD via GitHub Actions; result: 40% reduction in toil.</p>
+              <div style="margin-top:8px;color:var(--muted);font-size:13px">Tech: Kubernetes • Terraform • GitHub Actions • Prometheus</div>
+            </div>
+          </article>
+
+          <article class="card project">
+            <div class="proj-thumb" style="background:linear-gradient(90deg,#ff7bd6,#7b61ff)" aria-hidden="true"></div>
+            <div>
+              <h3 style="margin:0">GitOps for Microservices</h3>
+              <p style="color:var(--muted);margin:6px 0 0">Implemented GitOps with ArgoCD and FluxCD for progressive delivery and automated rollback; integrated policy checks using OPA.</p>
+              <div style="margin-top:8px;color:var(--muted);font-size:13px">Tech: ArgoCD • Flux • OPA • Helm</div>
+            </div>
+          </article>
+
+          <article class="card project">
+            <div class="proj-thumb" style="background:linear-gradient(90deg,#00d4ff,#36f)" aria-hidden="true"></div>
+            <div>
+              <h3 style="margin:0">Observability Stack</h3>
+              <p style="color:var(--muted);margin:6px 0 0">Set up Prometheus, Grafana dashboards and Loki for centralized logging. Added distributed tracing with Jaeger and reduced mean-time-to-detect by 30%.</p>
+              <div style="margin-top:8px;color:var(--muted);font-size:13px">Tech: Prometheus • Grafana • Loki • Jaeger</div>
+            </div>
+          </article>
+
+        </div>
+      </section>
+
+      <!-- Experience / Timeline -->
+      <section class="reveal">
+        <h2>Experience</h2>
+        <div class="grid-3">
+          <div class="card">
+            <h3>Platform Engineer</h3>
+            <div style="color:var(--muted);font-size:13px">Acme Corp — 2022-Now</div>
+            <p style="color:var(--muted);margin-top:8px">Led platform reliability, implemented SLOs & error budgets, reduced incidents by 45% with automated runbooks.</p>
+          </div>
+          <div class="card">
+            <h3>Site Reliability Engineer</h3>
+            <div style="color:var(--muted);font-size:13px">ByteWorks — 2019-2022</div>
+            <p style="color:var(--muted);margin-top:8px">Built CI pipelines and monitoring, introduced chaos testing and improved recovery time objectives.</p>
+          </div>
+          <div class="card">
+            <h3>DevOps Engineer</h3>
+            <div style="color:var(--muted);font-size:13px">Startup X — 2016-2019</div>
+            <p style="color:var(--muted);margin-top:8px">Automated deployments, containerized services, and implemented cost-saving measures across infra.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact -->
+      <section id="contact" class="reveal">
+        <h2>Contact</h2>
+        <div class="card" style="display:flex;gap:18px;align-items:flex-start;flex-wrap:wrap">
+          <div style="flex:1;min-width:240px">
+            <p style="color:var(--muted)">Interested in partnering or hiring? Drop a line — I'll respond quickly.</p>
+            <div style="display:flex;gap:10px;margin-top:8px">
+              <a class="btn" href="mailto:c.Gokulan.profs@gmail.com">Email</a>
+              <a class="btn ghost" href="./Project/Resume/resume.pdf" target="_blank">Download Resume</a>
+            </div>
+            <div style="height:12px"></div>
+            <div style="color:var(--muted);font-size:13px">Open-source: <span style="color:#9be3ff">github.com</span></div>
+          </div>
+
+          <form id="contact-form" style="flex:1;min-width:260px;display:flex;flex-direction:column;gap:8px">
+            <input aria-label="name" placeholder="Your name" required class="form-input" id="name" />
+            <input aria-label="email" placeholder="Email" type="email" required class="form-input" id="email" />
+            <textarea aria-label="message" placeholder="Message" rows="4" class="form-input" id="message"></textarea>
+            <button class="btn" type="submit">Send</button>
+          </form>
+        </div>
+      </section>
+
+      <footer>
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+          <div>© <strong>Gokulan</strong> — DevOps Engineer</div>
+          <div style="color:var(--muted)">Built with HTML, CSS & JavaScript • Smooth animations</div>
+        </div>
+      </footer>
+
+    </main>
+  </div>
+
+  <div id="toast" class="toast"></div>
+
+  <script>
+    // Animate terminal lines one-by-one
+    (function(){
+      const lines = document.querySelectorAll('.term .line');
+      lines.forEach((ln,i)=>{
+        setTimeout(()=>ln.classList.add('show'), 400 * i + 200);
+      });
+    })();
+
+    // Skill bars animation
+    document.addEventListener('DOMContentLoaded',()=>{
+      document.querySelectorAll('.bar > i').forEach(el=>{
+        const w = el.getAttribute('data-width') || '60';
+        requestAnimationFrame(()=>{ el.style.width = w + '%'; });
+      });
+    });
+
+    // Reveal on scroll using IntersectionObserver
+    const observer = new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      })
+    },{threshold:0.12});
+    document.querySelectorAll('.reveal, .card, .hero-card, .profile').forEach(el=>observer.observe(el));
+
+    // small keyboard shortcut: press 'p' to jump to projects
+    document.addEventListener('keydown', (e)=>{
+      if(e.key.toLowerCase()==='p'){
+        document.getElementById('projects').scrollIntoView({behavior:'smooth'});
+      }
+    });
+    
+    // Contact form submission
+    document.getElementById('contact-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const message = document.getElementById('message').value;
+      
+      const submitBtn = this.querySelector('button[type="submit"]');
+      const originalText = submitBtn.textContent;
+      
+      // Show loading state
+      submitBtn.textContent = 'Sending...';
+      submitBtn.disabled = true;
+      
+      try {
+        // Using EmailJS to send the email
+        // You need to create an account at https://www.emailjs.com/ and replace these values
+        const serviceID = 'portfolio_id';
+        const templateID = 'template_hwgtkri';
+        const userID = 'a4ilD7xDhK5mC58NI';
+        
+        // If you haven't set up EmailJS, we'll use a fallback
+        if (serviceID === 'portfolio_id') {
+          throw new Error('Email service not configured');
+        }
+        
+        // Send email using EmailJS
+        await emailjs.send(serviceID, templateID, {
+          from_name: name,
+          from_email: email,
+          message: message,
+          to_email: 'gokukrishna.18@gmail.com'
+        }, userID);
+        
+        // Show success message
+        showToast('Message sent successfully!', 'success');
+        
+        // Reset form
+        this.reset();
+      } catch (error) {
+        console.error('Failed to send message:', error);
+        showToast('Failed to send message. Please try again later.', 'error');
+      } finally {
+        // Reset button state
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+      }
+    });
+    
+    // Show toast notification
+    function showToast(message, type) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.className = 'toast ' + type;
+      
+      // Hide toast after 3 seconds
+      setTimeout(() => {
+        toast.className = 'toast';
+      }, 3000);
+    }
+  </script>
+  
+  <!-- Load EmailJS SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <script>
+    // Initialize EmailJS with your public key
+    // Replace 'YOUR_PUBLIC_KEY' with your actual EmailJS public key
+    emailjs.init('a4ilD7xDhK5mC58NI');
+  </script>
+</body>
+</html>
